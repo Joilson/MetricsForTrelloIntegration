@@ -1,0 +1,9 @@
+services:
+    trello.client:
+        class: AppBundle\Service\TrelloApiFactory
+        arguments: [%trello_token%, %trello_secret%]
+    
+    trello.client.api:
+        class: Trello\Client
+        factory: ["@trello.client", factory]
+        

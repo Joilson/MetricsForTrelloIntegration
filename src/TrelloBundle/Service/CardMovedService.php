@@ -2,6 +2,7 @@
 
 namespace TrelloBundle\Service;
 
+use DateTime;
 use Trello\Client;
 
 class CardMovedService
@@ -34,12 +35,23 @@ class CardMovedService
                 'filter' => 'updateCard',
             ]);
 
-            if ($action[0]) {
-                $movedCards[] = $card;
+            if ($action[0]['data']['listAfter']['id'] == $listId) {
+
+                $action[0]['date'] = $this->parseTimezoneForDate($action[0]['date']);
+
+                $movedCards[$card['id']]['card']   = $card;
+                $movedCards[$card['id']]['action'] = $action[0];
             }
         }
 
         return $movedCards;
+    }
+
+    private function parseTimezoneForDate($oldDate)
+    {
+        $date = new DateTime($oldDate);
+        date_sub($date, date_interval_create_from_date_string('3 hours'));
+        return $date;
     }
 
     public function registerNewCardMoved($card)

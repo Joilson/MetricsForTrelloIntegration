@@ -7,3 +7,9 @@ services:
         class: Trello\Client
         factory: ["@trello.client", factory]
         
+    trello.lists:
+        class: TrelloBundle\Service\ListService
+        
+    trello.card.moved:
+        class: TrelloBundle\Service\CardMovedService
+        arguments: ["@trello.client.api"]

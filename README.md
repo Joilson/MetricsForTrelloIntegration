@@ -70,9 +70,9 @@ Enjoy!
 Get your Trello keys
 --------------------
 
-[kEY]: https://trello.com/app-key
+Key - https://trello.com/app-key
 
-[Secret]: https://trello.com/1/authorize?key=SEU_KEY&name=NAME&scope=read,write&expiration=never&response_type=token
+Secret - https://trello.com/1/authorize?key=SEU_KEY&name=NAME&scope=read,write&expiration=never&response_type=token
 
 Command For getting moved cards:
 

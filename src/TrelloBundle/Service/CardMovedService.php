@@ -56,7 +56,7 @@ class CardMovedService
     private function getLastSyncForList($listId)
     {
         $lastSync['56cde648b6815a552e5f9065'] = "2016-08-08 17:18:10";
-        $lastSync['57a8e8aa51c27ef632a540f8'] = "2016-08-08 17:17:10";
+        $lastSync['57a8e8aa51c27ef632a540f8'] = "2016-08-09 17:10:27";
 
         return isset($lastSync[$listId]) ? $lastSync[$listId] : null;
     }

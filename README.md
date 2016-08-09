@@ -66,3 +66,14 @@ Enjoy!
 [10]: https://symfony.com/doc/2.8/cookbook/email.html
 [11]: https://symfony.com/doc/2.8/cookbook/logging/monolog.html
 [13]: https://symfony.com/doc/2.8/bundles/SensioGeneratorBundle/index.html
+
+Get your Trello keys
+--------------------
+
+[kEY]: https://trello.com/app-key
+
+[Secret]: https://trello.com/1/authorize?key=SEU_KEY&name=NAME&scope=read,write&expiration=never&response_type=token
+
+Command For getting moved cards:
+
+* app/console trello:moved:card *

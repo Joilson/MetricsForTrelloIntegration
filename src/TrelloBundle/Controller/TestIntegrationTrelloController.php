@@ -34,6 +34,7 @@ class TestIntegrationTrelloController extends Controller
         var_dump($cardsOpenFromHomolog);
 
         return [];
+        
     }
 
 }

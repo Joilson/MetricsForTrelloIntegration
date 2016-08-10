@@ -26,7 +26,7 @@ class CardMovedService
 
     public function getMovedCardsByList($listId)
     {
-        $cards = $this->getCardsOpenByList($listId);
+        $cards      = $this->getCardsOpenByList($listId);
         $movedCards = [];
 
 
@@ -36,7 +36,11 @@ class CardMovedService
                 'filter' => 'updateCard',
             ]);
 
-            $lastListId = isset($action[0]['data']['listAfter']['id']) ? $action[0]['data']['listAfter']['id'] : $action[0]['data']['list']['id'];
+            if (!isset($action[0]['data']['listAfter']['id'])) {
+                continue;
+            }
+
+            $lastListId = $action[0]['data']['listAfter']['id'];
 
             if ($lastListId == $listId) {
 
@@ -44,7 +48,7 @@ class CardMovedService
 
                 if ($this->isNewCard($listId, $action[0]['date'])) {
 
-                    $movedCards[$card['id']]['card'] = $card;
+                    $movedCards[$card['id']]['card']   = $card;
                     $movedCards[$card['id']]['action'] = $action[0];
                 }
             }
@@ -56,7 +60,7 @@ class CardMovedService
     private function getLastSyncForList($listId)
     {
         $lastSync['56cde648b6815a552e5f9065'] = "2016-08-08 17:18:10";
-        $lastSync['57a8e8aa51c27ef632a540f8'] = "2016-08-09 17:10:27";
+        $lastSync['57a8e8aa51c27ef632a540f8'] = "2016-08-10 15:03:55";
 
         return isset($lastSync[$listId]) ? $lastSync[$listId] : null;
     }

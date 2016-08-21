@@ -31,34 +31,46 @@ class CardMovedService
 
         foreach ($cards as $card) {
 
-            $action = $this->trelloApiClient->api('card')->actions()->all($card['id'], [
-                'filter' => "updateCard:idList",
-                'limit' => "2",
-                'since' => "null", // A partir da data Ex.: 2016-08-21T20:14:17.297Z
-            ]);
+            $action = $this->getLastActionMovedCardByCardId($card['id']);
 
-            print_r($action);
-            die;
-
-            if (!isset($action[0]['data']['listAfter']['id'])) {
+            if (!$action) {
                 continue;
             }
 
-            $lastListId = $action[0]['data']['listAfter']['id'];
+            $lastListId = $action['data']['listAfter']['id'];
 
             if ($lastListId == $listId) {
 
-                $action[0]['date'] = $this->parseTimezoneForDate($action[0]['date']);
+                $action['date'] = $this->parseTimezoneForDate($action['date']);
 
-                if ($this->isNewCard($listId, $action[0]['date'])) {
+                if ($this->isNewCard($listId, $action['date'])) {
 
                     $movedCards[$card['id']]['card'] = $card;
-                    $movedCards[$card['id']]['action'] = $action[0];
+                    $movedCards[$card['id']]['action'] = $action;
                 }
             }
         }
 
         return $movedCards;
+    }
+
+    public function getLastActionMovedCardByCardId($cardId)
+    {
+        $action = $this->trelloApiClient->api('card')->actions()->all($cardId, [
+            'filter' => "updateCard:idList",
+            'limit' => "1",
+            'since' => "null", // A partir da data Ex.: 2016-08-21T20:14:17.297Z
+        ]);
+
+        if (!isset($action[0])) {
+            return false;
+        }
+
+        if (!isset($action[0]['data']['listAfter']['id'])) {
+            return false;
+        }
+
+        return $action[0];
     }
 
     private function getLastSyncForList($listId)

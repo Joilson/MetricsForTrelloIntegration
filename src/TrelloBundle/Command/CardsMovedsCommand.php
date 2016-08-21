@@ -13,9 +13,9 @@ class CardsMovedsCommand extends ContainerAwareCommand
     protected function configure()
     {
         $this->setName('trello:moved:card')
-            ->setDescription("Verifica se existem novos cards movidos para a lista ou todas as listas configuradas")
-            ->addOption(
-                'list', null, InputOption::VALUE_OPTIONAL, "Lista desejada");
+                ->setDescription("Verifica se existem novos cards movidos para a lista ou todas as listas configuradas")
+                ->addOption(
+                        'list', null, InputOption::VALUE_OPTIONAL, "Lista desejada");
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)

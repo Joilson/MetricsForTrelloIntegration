@@ -26,15 +26,19 @@ class CardMovedService
 
     public function getMovedCardsByList($listId)
     {
-        $cards      = $this->getCardsOpenByList($listId);
+        $cards = $this->getCardsOpenByList($listId);
         $movedCards = [];
-
 
         foreach ($cards as $card) {
 
             $action = $this->trelloApiClient->api('card')->actions()->all($card['id'], [
-                'filter' => 'updateCard',
+                'filter' => "updateCard:idList",
+                'limit' => "2",
+                'since' => "null", // A partir da data Ex.: 2016-08-21T20:14:17.297Z
             ]);
+
+            print_r($action);
+            die;
 
             if (!isset($action[0]['data']['listAfter']['id'])) {
                 continue;
@@ -48,7 +52,7 @@ class CardMovedService
 
                 if ($this->isNewCard($listId, $action[0]['date'])) {
 
-                    $movedCards[$card['id']]['card']   = $card;
+                    $movedCards[$card['id']]['card'] = $card;
                     $movedCards[$card['id']]['action'] = $action[0];
                 }
             }

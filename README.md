@@ -1,4 +1,4 @@
-Symfony Standard Edition
+PROJECT STOPED :(
 ========================
 
 Welcome to the Symfony Standard Edition - a fully-functional Symfony
